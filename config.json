@@ -1,5 +1,5 @@
 {
-    "name": "Aluracord - Matrix (peas)",
+    "name": "Aliencord",
     "theme": {
         "colors": {
             "primary": {
@@ -8,7 +8,7 @@
                 "200": "#A3D9A5",
                 "300": "#7BC47F",
                 "400": "#57AE5B",
-                "500": "red",
+                "500": "#68D89B",
                 "600": "#2F8132",
                 "700": "#207227",
                 "800": "#0E5814",
@@ -28,7 +28,8 @@
                 "900": "#101418",
                 "999": "#080A0C"
             }
-        }
+        },
+        "background": "../img/alien_background.png"
     },
     "stickers": [
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_1.png",
@@ -68,4 +69,5 @@
         "https://c.tenor.com/VylWt5lyjBoAAAAC/omg-yes.gif",
         "https://i.pinimg.com/originals/96/34/c5/9634c520c9a3cd4e7f23190bb2c96500.gif"
     ]
+    
 }
