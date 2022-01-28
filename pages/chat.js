@@ -1,21 +1,53 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMyMjQyNCwiZXhwIjoxOTU4ODk4NDI0fQ.kvmiJZXVMRo6WH7e6y2Z9k5ndoqUniUkHngylobzXOo';
+const SUPABASE_URL = 'https://kmswqdlzhoqdpiafzsmt.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 
 
 export default function ChatPage() {
     // Sua lógica vai aqui
-    const [mensagem, setMensagem] = React.useState("");
+    const [mensagem, setMensagem] = React.useState('');
     const [mensagens, setMensagens] = React.useState([]);
-    const [username, setUsername] = React.useState('');
+    //const [username, setUsername] = React.useState('');
+
+    React.useEffect(() => { //lidar com tudo que foge do uso padrão do componente(execução do componente)
+        supabaseClient
+            .from('mensagens')
+            .select('*')
+            .order('id', {ascending: false})
+            .then(({data}) => {
+                console.log('dados da consulta:', data);
+                setMensagens(data);
+            });
+    }, []); 
+   
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            id: (new Date()).getTime(),
-            de: 'FranckOliveira',
-            horario: (new Date().toLocaleString()),
+           // id: mensagens.length + 1,
+            de: 'franckoliveira',
             texto: novaMensagem,
-        }
+            //horario: (new Date().toLocaleString()),
+        };
+
+        supabaseClient
+            .from('mensagens')
+            .insert([
+                //tem que ser objeto com os mesmos campos que está no supabase
+                mensagem
+            ])
+            .then (({ data }) => {
+                console.log('Criando mensagem: ', data);
+                setMensagens([data[0], ...mensagens,]);
+
+            });
+
         setMensagens([mensagem, ...mensagens,]);
         setMensagem('');
     }
@@ -37,7 +69,7 @@ export default function ChatPage() {
                     flex: 1,
                     boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                     borderRadius: '5px',
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
+                    backgroundColor: appConfig.theme.colors.neutrals["1000"],
                     height: '100%',
                     maxWidth: '95%',
                     maxHeight: '95vh',
@@ -51,7 +83,7 @@ export default function ChatPage() {
                         display: 'flex',
                         flex: 1,
                         height: '80%',
-                        backgroundColor: appConfig.theme.colors.neutrals[600],
+                        backgroundColor: appConfig.theme.colors.neutrals["700"],
                         flexDirection: 'column',
                         borderRadius: '5px',
                         padding: '16px',
@@ -130,7 +162,7 @@ function Header() {
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
                 <Text variant='heading5'>
-                    Chat
+                    ALIENCORD CHAT
                 </Text>
                 <Button
                     variant='tertiary'
@@ -184,7 +216,7 @@ function MessageList(props) {
                                     display: 'inline-block',
                                     marginRight: '8px',
                                 }}
-                                src={`https://github.com/franckOliveira.png`}
+                                src={`https://github.com/${mensagem.de}.png`}
                             />
                             <Text tag="strong">
                                 {mensagem.de}
@@ -196,9 +228,8 @@ function MessageList(props) {
                                     color: appConfig.theme.colors.neutrals[300],
                                 }}
                                 tag="span"
-                            >
-                                {/* {(new Date().toLocaleDateString())} */}
-                                {mensagem.horario}
+                            > {(new Date().toLocaleDateString())}
+                        
                             </Text>
                         </Box>
                         {mensagem.texto}
