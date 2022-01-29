@@ -27,12 +27,14 @@
                 "800": "#181F25",
                 "900": "#edf7f5",
                 "999": "#080A0C",
-                "1000": "#c2f7ee66"
+                "1000": "#c2f7ee66",
+                "opacity": "#101418e9",
+                "opacity-2": "#29333Db0"
             }
         },
         "background": "../img/alien_background.png"
     },
-    "stickers": [
+    "sticker": [
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_1.png",
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_2.png",
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_3.png",

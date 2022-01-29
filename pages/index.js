@@ -22,20 +22,6 @@ function Titulo(props) {
         </>
     );
 }
-//componente React
-//function HomePage() {
-//   return (
-//        <div>
-//            <GlobalStyle />
-//            <Titulo tag="h2">Boas vindas, Terráqueos</Titulo>
-//            <h2>Discord - Alien</h2>
-//            
-//        </div>
-//
-//    )
-//  }
-// 
-//  export default HomePage
 
 
 
@@ -75,7 +61,7 @@ export default function PaginaInicial() {
                         onSubmit={function(infosdoEvento) {
                             infosdoEvento.preventDefault();
                             //console.log('Alguem submeteu o from');
-                            roteamento.push('/chat');
+                            roteamento.push(`/chat?username=${username}`);
 
                             // window.location.href='/chat'
                         }}
