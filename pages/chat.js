@@ -133,6 +133,7 @@ export default function ChatPage() {
                                   if (mensagem.trim() !== '')
                                         handleNovaMensagem(mensagem)
                                     else setMensagem('');
+                                    window.location.reload();
                                 }
                             }}
                             placeholder="Insira sua mensagem aqui..."
@@ -151,6 +152,7 @@ export default function ChatPage() {
                         <ButtonSendSticker 
                             onStickerClick={(sticker) =>{
                                 handleNovaMensagem(':sticker: ' + sticker);
+                                window.location.reload();
                             }}
                         />
                         <Button
